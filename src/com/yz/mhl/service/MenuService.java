@@ -17,4 +17,10 @@ public class MenuService {
         String sql = "select * from menu";
         return menuDao.queryMulti(sql, Menu.class, null);
     }
+
+    // 查询单个菜品信息
+    public Menu queryMenu(int id) {
+        String sql = "select * from menu where id = ?";
+        return menuDao.querySingle(sql, Menu.class, id);
+    }
 }

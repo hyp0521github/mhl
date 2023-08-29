@@ -17,7 +17,7 @@ public class DiningService {
         return diningDao.queryMulti("select id, status from dining", Dining.class, null);
     }
 
-    // 查询某个餐桌信息
+    // 查询某个餐桌的状态信息
     public Object queryDining(int id) {
         return diningDao.queryScalar("select status from dining where id = ?", Dining.class, id);
     }
@@ -25,5 +25,11 @@ public class DiningService {
     // 修改某个餐桌信息
     public int updateDining(int id, String orderName, String orderTel) {
         return diningDao.update("update dining set status = '已预定', orderName = ?, orderTel = ? where id = ?", orderName, orderTel, id);
+    }
+
+    // 修改餐桌状态
+    public boolean updateDiningStatus(int id) {
+        int update = diningDao.update("update dining set status = '用餐中' where id = ?", id);
+        return update > 0;
     }
 }
