@@ -3,8 +3,10 @@ package com.yz.mhl.view;
 
 import com.yz.mhl.domain.Dining;
 import com.yz.mhl.domain.Employee;
+import com.yz.mhl.domain.Menu;
 import com.yz.mhl.service.DiningService;
 import com.yz.mhl.service.EmployeeService;
+import com.yz.mhl.service.MenuService;
 import com.yz.mhl.utils.Utility;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class MHLView {
 
     EmployeeService es = new EmployeeService();
     DiningService ds = new DiningService();
+    MenuService ms = new MenuService();
 
     public static void main(String[] args) {
         new MHLView().mainMenu();
@@ -72,9 +75,19 @@ public class MHLView {
             System.out.println("============预定失败============");
     }
 
+    // 显示所有菜品
+    public void showMenuList() {
+        System.out.println("===============显示所有菜品=============");
+        System.out. println("菜品编号\t\t菜品名\t\t类别\t\t价格");
+        List<Menu> menus = ms.queryMenuList();
+        for (Menu menu : menus) {
+            System.out.println(menu);
+        }
+    }
+
     public void mainMenu() {
         while (loop) {
-            System.out.println("===============满汉楼============");
+            System.out.println("===============满汉楼=============");
             System.out.println("\t\t 1 登录满汉楼");
             System.out.println("\t\t 2 退出满汉楼");
             System.out.print("请输入你的选择：");
@@ -107,7 +120,7 @@ public class MHLView {
                                     bookMeals();
                                     break;
                                 case "3":
-                                    System.out.println("显示所有菜品");
+                                    showMenuList();
                                     break;
                                 case "4":
                                     System.out.println("点餐服务");
