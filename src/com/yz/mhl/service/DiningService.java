@@ -22,14 +22,20 @@ public class DiningService {
         return diningDao.queryScalar("select status from dining where id = ?", Dining.class, id);
     }
 
-    // 修改某个餐桌信息
+    // 修改餐桌状态为已预定
     public int updateDining(int id, String orderName, String orderTel) {
         return diningDao.update("update dining set status = '已预定', orderName = ?, orderTel = ? where id = ?", orderName, orderTel, id);
     }
 
-    // 修改餐桌状态
+    // 修改餐桌状态为用餐中
     public boolean updateDiningStatus(int id) {
         int update = diningDao.update("update dining set status = '用餐中' where id = ?", id);
+        return update > 0;
+    }
+
+    // 修改餐桌状态为空
+    public boolean updateDiningStatusIsEmpty(int id) {
+        int update = diningDao.update("update dining set status = '空', orderName = '', orderTel = '' where id = ?", id);
         return update > 0;
     }
 }

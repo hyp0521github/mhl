@@ -11,9 +11,6 @@ import com.yz.mhl.service.EmployeeService;
 import com.yz.mhl.service.MenuService;
 import com.yz.mhl.utils.Utility;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -150,6 +147,35 @@ public class MHLView {
         }
     }
 
+    // 结账
+    public void checkout() {
+        System.out.println("==============结账服务=============");
+        System.out.print("请选择要结账的餐桌编号(-1退出): ");
+        int diningId = Utility.readInt();
+        if(diningId == -1) return;
+        // 判断点餐桌号
+        if (ds.queryDining(diningId) == null) {
+            System.out.println("请输入正确餐桌编号");
+            return;
+        }
+        if(!bs.queryNotPayBill(diningId)) {
+            System.out.println("没有未结账的餐桌");
+            return;
+        }
+        System.out.print("结账的方式(现金/支付宝/微信）回车表示退出：");
+        String payMode = Utility.readString(10);
+        if(payMode.equals("")) {
+            System.out.println("==============取消结账=============");
+            return;
+        };
+        char selection = Utility.readConfirmSelection();
+        if(selection == 'Y') {
+            // 完成结账
+            bs.payBill(diningId);
+            System.out.println("==============结账完成=============");
+        }
+    }
+
     public void mainMenu() {
         while (loop) {
             System.out.println("===============满汉楼=============");
@@ -194,7 +220,7 @@ public class MHLView {
                                     showBillList();
                                     break;
                                 case "6":
-                                    System.out.println("结账");
+                                    checkout();
                                     break;
                                 case "9":
                                     loop = false;

@@ -139,6 +139,18 @@ public class Utility {
     }
 
     /**
+     * 读取用户是否按下回车键
+     * @return true/false
+     */
+    public static boolean readEmpty() {
+        String s = scanner.nextLine();
+        if(s.isEmpty())
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * 功能： 读取一个字符串
      * @param limit 读取的长度
      * @param blankReturn 如果为true ,表示 可以读空字符串。 
@@ -173,4 +185,5 @@ public class Utility {
 
         return line;
     }
+
 }
