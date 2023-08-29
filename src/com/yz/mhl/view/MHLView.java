@@ -19,7 +19,7 @@ public class MHLView {
     private String key = "";
 
     EmployeeService es = new EmployeeService();
-    DiningService ds  = new DiningService();
+    DiningService ds = new DiningService();
 
     public static void main(String[] args) {
         new MHLView().mainMenu();
@@ -32,6 +32,44 @@ public class MHLView {
         for (Dining dining : dinings) {
             System.out.println(dining);
         }
+    }
+
+    // 预定餐桌
+    public void bookMeals() {
+        System.out.println("============预定餐桌============");
+        int diningId = -1;
+        while (true) {
+            System.out.print("请选择要预定餐桌编号(-1退出): ");
+            diningId = Utility.readInt(10);
+            if (diningId == -1)
+                // 退出预定
+                return;
+            else {
+                // 查询餐桌状态是否为空
+                Object status = ds.queryDining(diningId);
+                if (status != null) {
+                    if (status.equals("空"))
+                        break;
+                    else if (status.equals("已预定"))
+                        System.out.println("该餐桌已预定");
+                    else if (status.equals("用餐中"))
+                        System.out.println("该餐桌用餐中");
+                } else
+                    System.out.println("请输入正确的餐桌编号");
+            }
+        }
+        char c = Utility.readConfirmSelection();
+        if (c == 'N')
+            return;
+        System.out.print("预定人名字: ");
+        String orderName = Utility.readString(10);
+        System.out.print("预定人电话: ");
+        String orderTel = Utility.readString(20);
+        int rows = ds.updateDining(diningId, orderName, orderTel);
+        if(rows > 0)
+            System.out.println("============预定成功============");
+        else
+            System.out.println("============预定失败============");
     }
 
     public void mainMenu() {
@@ -66,7 +104,7 @@ public class MHLView {
                                     showDiningList();
                                     break;
                                 case "2":
-                                    System.out.println("预定餐桌");
+                                    bookMeals();
                                     break;
                                 case "3":
                                     System.out.println("显示所有菜品");

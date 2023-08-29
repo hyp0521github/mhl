@@ -16,4 +16,14 @@ public class DiningService {
     public List<Dining> queryDiningList() {
         return diningDao.queryMulti("select id, status from dining", Dining.class, null);
     }
+
+    // 查询某个餐桌信息
+    public Object queryDining(int id) {
+        return diningDao.queryScalar("select status from dining where id = ?", Dining.class, id);
+    }
+
+    // 修改某个餐桌信息
+    public int updateDining(int id, String orderName, String orderTel) {
+        return diningDao.update("update dining set status = '已预定', orderName = ?, orderTel = ? where id = ?", orderName, orderTel, id);
+    }
 }
