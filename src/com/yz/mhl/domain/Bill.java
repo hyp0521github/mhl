@@ -6,7 +6,7 @@ package com.yz.mhl.domain;
  */
 public class Bill {
     private Integer id;
-    private String  billId;
+    private String billId;
     private Integer menuId;
     private Integer nums;
     private Double money;
@@ -92,5 +92,14 @@ public class Bill {
         this.state = state;
     }
 
-
+    @Override
+    public String toString() {
+        return id +
+                "\t\t" + menuId +
+                "\t\t" + nums +
+                "\t\t" + money +
+                "\t\t" + diningId +
+                "\t\t" + billDate +
+                "\t\t" + state;
+    }
 }

@@ -1,6 +1,7 @@
 package com.yz.mhl.view;
 
 
+import com.yz.mhl.domain.Bill;
 import com.yz.mhl.domain.Dining;
 import com.yz.mhl.domain.Employee;
 import com.yz.mhl.domain.Menu;
@@ -139,6 +140,16 @@ public class MHLView {
         }
     }
 
+    // 查看账单
+    public void showBillList() {
+        System.out.println("===============查看账单===============");
+        System. out.println("(\n编号\t\t菜品号\t\t菜品量\t\t金额\t\t桌号\t\t日期\t\t\t\t\t\t\t状态");
+        List<Bill> bills = bs.queryBillList();
+        for (Bill bill : bills) {
+            System.out.println(bill);
+        }
+    }
+
     public void mainMenu() {
         while (loop) {
             System.out.println("===============满汉楼=============");
@@ -180,7 +191,7 @@ public class MHLView {
                                     order();
                                     break;
                                 case "5":
-                                    System.out.println("查看账单");
+                                    showBillList();
                                     break;
                                 case "6":
                                     System.out.println("结账");
