@@ -1,7 +1,9 @@
 package com.yz.mhl.service;
 
 import com.yz.mhl.dao.BillDao;
+import com.yz.mhl.dao.MultiTableDao;
 import com.yz.mhl.domain.Bill;
+import com.yz.mhl.domain.MultiTableBean;
 
 import java.util.List;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class BillService {
     private BillDao billDao = new BillDao();
     private DiningService ds = new DiningService();
+    private MultiTableDao multiTableDao = new MultiTableDao();
 
     // 添加账单
     public Boolean addBill(String billId, int menuId, int nums, Double money, int diningId) {
@@ -20,8 +23,9 @@ public class BillService {
     }
 
     // 查询所有账单信息
-    public List<Bill> queryBillList() {
-        return billDao.queryMulti("select * from bill", Bill.class, null);
+    public List<MultiTableBean> queryBillList() {
+        return multiTableDao.queryMulti("select bill.*, name as name2 from bill, menu where bill.menuId = menu.id", MultiTableBean.class, null);
+        // return billDao.queryMulti("select * from bill", Bill.class, null);
     }
 
     // 查询是否有未结账信息

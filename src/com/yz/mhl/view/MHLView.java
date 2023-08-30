@@ -1,10 +1,7 @@
 package com.yz.mhl.view;
 
 
-import com.yz.mhl.domain.Bill;
-import com.yz.mhl.domain.Dining;
-import com.yz.mhl.domain.Employee;
-import com.yz.mhl.domain.Menu;
+import com.yz.mhl.domain.*;
 import com.yz.mhl.service.BillService;
 import com.yz.mhl.service.DiningService;
 import com.yz.mhl.service.EmployeeService;
@@ -140,10 +137,10 @@ public class MHLView {
     // 查看账单
     public void showBillList() {
         System.out.println("===============查看账单===============");
-        System. out.println("(\n编号\t\t菜品号\t\t菜品量\t\t金额\t\t桌号\t\t日期\t\t\t\t\t\t\t状态");
-        List<Bill> bills = bs.queryBillList();
-        for (Bill bill : bills) {
-            System.out.println(bill);
+        System. out.println("(\n编号\t\t菜品号\t\t菜品量\t\t金额\t\t桌号\t\t日期\t\t\t\t\t\t\t状态\t\t名称");
+        List<MultiTableBean> multiTableBeans = bs.queryBillList();
+        for (MultiTableBean multiTableBean : multiTableBeans) {
+            System.out.println(multiTableBean);
         }
     }
 
